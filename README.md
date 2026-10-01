@@ -32,7 +32,7 @@ The code lives in a single monorepo. Implementation starts with the backend; the
 ```text
 .
 ├── backend/   # FastAPI application, migrations, and tests
-├── frontend/  # Angular application (added later)
+├── frontend/  # Angular application (placeholder; app added later)
 ├── docs/      # Data model and other project documentation
 └── README.md
 ```
