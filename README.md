@@ -21,8 +21,8 @@ Milestone: [MVP 0.1 — Create and list payment requests](https://github.com/gab
 | Layer          | Technology               |
 | -------------- | ------------------------ |
 | Frontend       | Angular                  |
-| Backend        | FastAPI (Python)         |
-| Database       | PostgreSQL, with Alembic migrations |
+| Backend        | Spring Boot 4.1 (Java 21, Maven) |
+| Database       | PostgreSQL, with Flyway migrations |
 | Local runtime  | Docker Compose           |
 
 The code lives in a single monorepo. Implementation starts with the backend; the frontend is added later.
@@ -31,7 +31,7 @@ The code lives in a single monorepo. Implementation starts with the backend; the
 
 ```text
 .
-├── backend/   # FastAPI application, migrations, and tests
+├── backend/   # Spring Boot API, Flyway migrations, and tests
 ├── frontend/  # Angular application (placeholder; app added later)
 ├── docs/      # Data model and other project documentation
 └── README.md
