@@ -1,0 +1,18 @@
+{
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.completion.favoriteStaticMembers": [
+    "org.assertj.core.api.Assertions.*",
+    "org.junit.jupiter.api.Assertions.*",
+    "org.mockito.Mockito.*",
+    "org.mockito.ArgumentMatchers.*",
+    "org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*",
+    "org.springframework.test.web.servlet.result.MockMvcResultMatchers.*"
+  ],
+  "java.format.settings.url": "backend/eclipse-formatter.xml",
+  "java.format.settings.profile": "payflow",
+  "files.autoSave": "onFocusChange",
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java",
+    "editor.formatOnSave": true
+  }
+}
