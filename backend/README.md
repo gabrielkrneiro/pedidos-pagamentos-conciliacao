@@ -2,7 +2,7 @@
 
 Spring Boot application for the Orders, Payments, and Reconciliation platform. It exposes the REST API, owns the PostgreSQL schema through Flyway migrations, and contains the backend tests.
 
-> **Status:** not started. This folder is a placeholder created by [#5](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/5).
+> **Status:** bootstrapped ([#7](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/7)). The application starts and exposes a health endpoint; business endpoints are not implemented yet.
 
 ## Tech stack
 
@@ -18,7 +18,6 @@ Spring Boot application for the Orders, Payments, and Reconciliation platform. I
 ## Planned work
 
 - Docker Compose for the API and PostgreSQL ([#6](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/6))
-- Spring Boot application bootstrap ([#7](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/7))
 - Flyway configuration ([#8](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/8))
 - Customer data model, documented in `docs/data-model.md` ([#9](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/9))
 - Customers table migration ([#10](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/10))
@@ -27,4 +26,29 @@ Spring Boot application for the Orders, Payments, and Reconciliation platform. I
 
 ## Getting started
 
-Setup and test instructions will be added once the application is bootstrapped.
+### Prerequisites
+
+- Java 21 (`mise install` picks it up from `mise.toml`)
+- Docker, for the local database and for the tests
+
+### Run the API
+
+```bash
+cp .env.example .env        # then set POSTGRES_PASSWORD
+docker compose up -d        # starts PostgreSQL
+./mvnw spring-boot:run
+```
+
+Check that it is up: `curl http://localhost:8080/actuator/health` returns `{"status":"UP"}`.
+
+### Run the tests
+
+```bash
+./mvnw test
+```
+
+The tests start their own PostgreSQL container with Testcontainers, so they don't need `.env` or the Docker Compose database, but Docker must be running.
+
+### Formatting
+
+Java code follows `eclipse-formatter.xml` (2-space indentation, 100-column lines). Check it with `./mvnw spotless:check` and fix it with `./mvnw spotless:apply`. VS Code uses the same profile through `.vscode/settings.json`.
