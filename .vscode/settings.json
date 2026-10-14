@@ -1,18 +1,24 @@
 {
-  "java.compile.nullAnalysis.mode": "automatic",
-  "java.completion.favoriteStaticMembers": [
-    "org.assertj.core.api.Assertions.*",
-    "org.junit.jupiter.api.Assertions.*",
-    "org.mockito.Mockito.*",
-    "org.mockito.ArgumentMatchers.*",
-    "org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*",
-    "org.springframework.test.web.servlet.result.MockMvcResultMatchers.*"
-  ],
-  "java.format.settings.url": "backend/eclipse-formatter.xml",
-  "java.format.settings.profile": "payflow",
   "files.autoSave": "onFocusChange",
-  "[java]": {
-    "editor.defaultFormatter": "redhat.java",
-    "editor.formatOnSave": true
-  }
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+  "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
+  "python.testing.pytestEnabled": true,
+  "python.testing.cwd": "backend",
+  "python.testing.pytestArgs": ["tests"],
+  "ruff.configuration": "backend/pyproject.toml",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll": "explicit"
+    }
+  },
+  "python-envs.pythonProjects": [
+    {
+      "path": ".",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 ---
 name: review-check
-description: Pre-PR gate for this repo. Reviews the current branch's changes, runs lint (Spotless) and the test suite, and reports whether the work is ready for a pull request. Use when the user asks to review, check, or validate their changes before committing or opening a PR.
+description: Pre-PR gate for this repo. Reviews the current branch's changes, runs lint (Ruff) and the test suite, and reports whether the work is ready for a pull request. Use when the user asks to review, check, or validate their changes before committing or opening a PR.
 ---
 
 # Review and check
@@ -21,11 +21,13 @@ Run `bash .claude/skills/review-check/scripts/check.sh` from the repo root (allo
 
 | Check | Command |
 |---|---|
-| Backend lint | `./mvnw spotless:check` (format from `backend/eclipse-formatter.xml`, unused imports, trailing whitespace) |
-| Backend tests | `./mvnw verify` (needs Docker for Testcontainers) |
+| Backend install | `uv sync --locked` (fails if `uv.lock` is out of date with `pyproject.toml`) |
+| Backend format | `uv run ruff format --check .` |
+| Backend lint | `uv run ruff check .` (rules in `backend/pyproject.toml`) |
+| Backend tests | `uv run pytest` (needs Docker for Testcontainers) |
 | Frontend lint and tests | `npm run lint` and `npm test`, once `frontend/package.json` exists |
 
-For each FAIL, open its log and pull out the real cause: the failing test and assertion, the compile error, or the files with format violations. A lint failure is fixed with `./mvnw spotless:apply` in `backend/`; mention that rather than running it.
+For each FAIL, open its log and pull out the real cause: the failing test and assertion, the import error, or the files with format or lint violations. Format and lint failures are fixed with `uv run ruff format . && uv run ruff check --fix .` in `backend/`; mention that rather than running it.
 
 ## 3. Review the code
 
@@ -33,12 +35,12 @@ Read the full diff and every new file. Look for, in this order:
 
 1. **Correctness:** bugs, wrong HTTP status codes, unhandled nulls, broken transactions, queries that ignore case or trimming when the issue requires it.
 2. **Scope:** changes the issue did not ask for, and issue requirements or acceptance criteria the diff does not cover.
-3. **Tests:** every new behavior and acceptance criterion has a test; tests that touch the database import `TestcontainersConfiguration` instead of relying on a local Postgres.
+3. **Tests:** every new behavior and acceptance criterion has a test; tests that touch the database use the `client` fixture from `tests/conftest.py` (Testcontainers) instead of relying on a local Postgres.
 4. **Project conventions:**
-   - Constructor injection in application code (field `@Autowired` only in tests).
-   - Input validated with Bean Validation; field-level validation errors return HTTP 422.
-   - Schema changes go in a new Flyway migration; never edit a migration that is already on `main`.
-   - Dependency versions omitted when Spring Boot manages them.
+   - Dependencies (session, settings) reach endpoints through FastAPI `Depends`, not module-level globals.
+   - Request and response bodies are Pydantic models with type hints; field-level validation errors return HTTP 422.
+   - Schema changes go in a new Alembic migration; never edit a migration that is already on `main`.
+   - Dependencies are added with `uv add` so `pyproject.toml` and `uv.lock` stay in sync.
 5. **Security:** secrets, `.env` files, or credentials in the diff; SQL built by string concatenation.
 6. **Documentation:** README or setup docs updated when behavior or setup changed.
 

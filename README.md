@@ -21,8 +21,8 @@ Milestone: [MVP 0.1 — Create and list payment requests](https://github.com/gab
 | Layer          | Technology               |
 | -------------- | ------------------------ |
 | Frontend       | Angular                  |
-| Backend        | Spring Boot 4.1 (Java 21, Maven) |
-| Database       | PostgreSQL, with Flyway migrations |
+| Backend        | FastAPI (Python 3.14, uv) |
+| Database       | PostgreSQL, with Alembic migrations |
 | Local runtime  | Docker Compose           |
 
 The code lives in a single monorepo. Implementation starts with the backend; the frontend is added later.
@@ -31,7 +31,7 @@ The code lives in a single monorepo. Implementation starts with the backend; the
 
 ```text
 .
-├── backend/   # Spring Boot API, Flyway migrations, and tests
+├── backend/   # FastAPI application, Alembic migrations, and tests
 ├── frontend/  # Angular application (placeholder; app added later)
 ├── docs/      # Data model and other project documentation
 └── README.md
@@ -39,7 +39,9 @@ The code lives in a single monorepo. Implementation starts with the backend; the
 
 ## Getting started
 
-Setup instructions will be added once the backend and Docker Compose are in place ([#5](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/5), [#6](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/6)). The goal is to start the whole environment with:
+To run the backend locally and its tests, follow [backend/README.md](backend/README.md#getting-started).
+
+A single command for the whole environment will come with Docker Compose for the API ([#5](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/5), [#6](https://github.com/gabrielkrneiro/pedidos-pagamentos-conciliacao/issues/6)). The goal is:
 
 ```bash
 docker compose up --build
