@@ -1,7 +1,7 @@
 .PHONY: run sync add-dependency add-dependencies-dev remove-dependency
 
 run:
-	uv run uvicorn app.main:app --reload --port 8080
+	docker compose up --watch --attach api
 
 sync:
 	uv sync
