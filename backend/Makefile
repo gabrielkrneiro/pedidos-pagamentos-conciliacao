@@ -1,7 +1,7 @@
 .PHONY: run sync add-dependency add-dependencies-dev remove-dependency
 
 run:
-	docker compose up --watch --attach api
+	docker compose up --build --watch --attach api
 
 sync:
 	uv sync

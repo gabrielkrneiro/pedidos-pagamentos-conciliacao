@@ -5,11 +5,16 @@ services:
     env_file: .env
     develop:
       watch:
-        - action: sync+restart
+        - action: sync
           path: ./app
           target: /app/app
+        - action: sync+restart
+          path: alembic.ini
+          target: /app/alembic.ini
         - action: rebuild
           path: uv.lock
+        - action: rebuild
+          path: Dockerfile
     environment:
       - POSTGRES_HOST=postgres
     ports:
