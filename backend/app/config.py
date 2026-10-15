@@ -30,4 +30,5 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    # Fields come from env vars and .env, which Pylance can't see
+    return Settings()  # pyright: ignore[reportCallIssue]

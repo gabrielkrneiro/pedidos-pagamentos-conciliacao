@@ -10,6 +10,7 @@ ENV UV_COMPILE_BYTECODE=1 \
 WORKDIR /app
 
 COPY pyproject.toml uv.lock ./
+COPY alembic.ini ./
 RUN uv sync --locked --no-dev
 
 COPY app ./app
